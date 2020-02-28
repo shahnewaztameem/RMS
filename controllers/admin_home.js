@@ -172,4 +172,47 @@ router.get('/add_restaurants', (req, res) => {
     res.render('admin/add_restaurants', data);
 });
 
+// add restaurent
+router.post('/add_restaurants', (req, res) => {
+    req.check('count', 'add 2 item').rtrim().isDivisibleBy(2);
+
+    var err = req.validationErrors();
+    if (!err) {
+        var data = {
+            r_name: req.body.r_name,
+            r_loc: req.body.r_location,
+            r_details: req.body.r_about,
+            item1: req.body.item1,
+            item1_d: req.body.about1
+        };
+
+        userModel.insertIntoRestaurant(data, (status) => {
+            if (status) {
+                userModel.getRestaurant(data, function(result) {
+                    if (result) {
+                        var data = {
+                            item1: req.body.item1,
+                            item1_d: req.body.about1,
+                            item2: req.body.item2,
+                            item2_d: req.body.about2,
+                            id: result.r_id
+                        };
+                        userModel.insertIntoRestaurantItem(data, function(st) {
+                            if (st) {
+                                res.redirect('/home-admin');
+                            }
+                        });
+                    }
+
+                });
+            } else {
+                res.redirect('/home-admin/add_restaurants');
+            }
+        });
+    } else {
+        req.session.errors = err;
+        res.redirect('/home-admin/add_restaurants');
+    }
+});
+
 module.exports = router;
