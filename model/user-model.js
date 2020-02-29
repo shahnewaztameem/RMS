@@ -102,6 +102,7 @@ module.exports = {
         });
 
     },
+    
     insertIntoRestaurantItem: function (data, callback) {
         var sql = "insert into item_details values(null,?,?,?),(null,?,?,?)";
         db.execute(sql, [
@@ -112,6 +113,68 @@ module.exports = {
                 callback(true);
             } else {
                 callback(false);
+            }
+        });
+    },
+    getAllRestaurant: function(callback) {
+        var sql = "select * from restaurant_info";
+        db.getResults(sql, [], function(results) {
+            callback(results);
+        });
+
+    },
+    addItem: function(data, callback) {
+        var sql = "insert into item_details values(null,?,?,?)";
+        db.execute(sql, [data.r_id, data.i_name, data.i_detail], function(status) {
+            callback(status);
+        });
+    },
+    getRestaurantInfo: function(id, callback) {
+        var sql = "select * from restaurant_info where r_id=?";
+        db.getResults(sql, [id], (result) => {
+            callback(result[0]);
+        });
+    },
+    getAllItems: function(id, callback) {
+        var sql = "select * from item_details where r_id=?";
+        db.getResults(sql, [id], (results) => {
+            callback(results);
+        });
+    },
+    updateRestaurant: function(data, callback) {
+        var sql = "update restaurant_info set r_name=?, r_location=?, r_details=? where r_id=?";
+        db.execute(sql, [data.r_name,
+            data.r_location,
+            data.r_details,
+            data.id
+        ], function(status) {
+            callback(status);
+        });
+    },
+    deleteItem: function(id, callback) {
+        var sql = "delete from item_details where i_id=?";
+        db.execute(sql, [id], function(status) {
+            if (status) {
+                callback(true);
+            } else {
+                callback(false);
+            }
+        });
+    },
+    updateItem: function(data, callback) {
+        var sql = "update item_details set i_name=?, i_detail=? where i_id=?";
+        db.execute(sql, [data.i_name, data.i_detail, data.id], function(status) {
+            callback(status);
+        });
+    },
+    deleteRestaurants: function(id, callback) {
+        var sql = "delete from restaurant_info where r_id=?";
+        db.execute(sql, [id], function(status) {
+            if (status) {
+                var sql = "delete from item_details where r_id=?";
+                db.execute(sql, [id], function(status) {
+                    callback(true);
+                });
             }
         });
     }

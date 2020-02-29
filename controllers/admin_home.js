@@ -38,23 +38,25 @@ router.get("/delete/:id", function (req, res) {
 });
 
 //user individual edit
-router.get('/user_edit/:id', function(req, res){
-	userModel.get(req.params.id, function(result){
-		res.render('admin/user_edit', {user_info: result});
-	});
+router.get('/user_edit/:id', function (req, res) {
+    userModel.get(req.params.id, function (result) {
+        res.render('admin/user_edit', {
+            user_info: result
+        });
+    });
 });
-router.post('/user_edit/:id', function(req, res){
-	
+router.post('/user_edit/:id', function (req, res) {
+
     var user = {
         user_id: req.params.id,
         user_type: req.body.user_type
     };
 
-    userModel.IndividualUserUpdate(user, function(status){
-        if(status){
+    userModel.IndividualUserUpdate(user, function (status) {
+        if (status) {
             res.redirect('/home-admin/user_list');
-        }else{
-            res.redirect('/home/user_edit/'+req.params.id);
+        } else {
+            res.redirect('/home/user_edit/' + req.params.id);
         }
     });
 });
@@ -188,7 +190,7 @@ router.post('/add_restaurants', (req, res) => {
 
         userModel.insertIntoRestaurant(data, (status) => {
             if (status) {
-                userModel.getRestaurant(data, function(result) {
+                userModel.getRestaurant(data, function (result) {
                     if (result) {
                         var data = {
                             item1: req.body.item1,
@@ -197,9 +199,9 @@ router.post('/add_restaurants', (req, res) => {
                             item2_d: req.body.about2,
                             id: result.r_id
                         };
-                        userModel.insertIntoRestaurantItem(data, function(st) {
+                        userModel.insertIntoRestaurantItem(data, function (st) {
                             if (st) {
-                                res.redirect('/home-admin');
+                                res.redirect('/home-admin/restaurants_list');
                             }
                         });
                     }
@@ -213,6 +215,124 @@ router.post('/add_restaurants', (req, res) => {
         req.session.errors = err;
         res.redirect('/home-admin/add_restaurants');
     }
+});
+//get restaurant list
+router.get('/restaurants_list', (req, res) => {
+    userModel.getAllRestaurant(function (result) {
+        if (result.length) {
+            var data = {
+                r_list: result,
+                username: req.session.user_name
+
+            }
+            res.render('admin/restaurants_list', data);
+        }
+    });
+});
+
+//add item
+router.post('/add-item/:id', (req, res) => {
+    var data = {
+        r_id: req.params.id,
+        i_name: req.body.i_n,
+        i_detail: req.body.i_d
+    };
+    userModel.addItem(data, (status) => {
+        res.redirect('/home-admin/restaurants_list');
+    });
+});
+
+//edit restaurant info and menus
+router.get('/edit/:id', (req, res) => {
+    userModel.getRestaurantInfo(req.params.id, (r_results) => {
+        req.session.r_id = r_results.r_id;
+        if (r_results.length != 0) {
+            userModel.getAllItems(req.params.id, (i_results) => {
+                if (i_results.length != 0) {
+                    var data = {
+                        r_info: r_results,
+                        i_info: i_results,
+                        errors: req.session.errors,
+                        username: req.session.user_name
+                    };
+                    res.render('admin/edit_restaurant', data);
+                }
+            });
+        } else {
+            res.redirect('/home-admin/restaurants_list');
+        }
+    });
+});
+//edit restaurant info
+router.post('/edit-restaurant/:id', (req, res) => {
+    var data = {
+        id: req.params.id,
+        r_name: req.body.r_n,
+        r_location: req.body.r_loc,
+        r_details: req.body.r_d
+    };
+    userModel.updateRestaurant(data, (status) => {
+        res.redirect('/home-admin/restaurants_list');
+    });
+});
+//edit restaurant info and menus
+router.get('/edit/:id', (req, res) => {
+    userModel.getRestaurantInfo(req.params.id, (r_results) => {
+        req.session.r_id = r_results.r_id;
+        if (r_results.length != 0) {
+            userModel.getAllItems(req.params.id, (i_results) => {
+                if (i_results.length != 0) {
+                    var data = {
+                        r_info: r_results,
+                        i_info: i_results,
+                        errors: req.session.errors
+                    };
+                    res.render('admin/edit_restaurant', data);
+                }
+            });
+        } else {
+            res.redirect('/home-admin/restaurants_list');
+        }
+    });
+});
+
+//edit restaurant info
+router.post('/edit-restaurant/:id', (req, res) => {
+    var data = {
+        id: req.params.id,
+        r_name: req.body.r_n,
+        r_location: req.body.r_loc,
+        r_details: req.body.r_d
+    };
+    userModel.updateRestaurant(data, (status) => {
+        res.redirect('/home-admin/restaurants_list');
+    });
+});
+
+//edit item
+router.post('/edit-item/:id', (req, res) => {
+    var data = {
+        id: req.params.id,
+        i_name: req.body.i_n,
+        i_detail: req.body.i_d
+    };
+    userModel.updateItem(data, (status) => {
+        res.redirect('/home-admin/edit/' + req.session.r_id);
+    });
+});
+
+//delete item
+router.get('/delete-item/:id', (req, res) => {
+    userModel.deleteItem(req.params.id, (status) => {
+        res.redirect('/home-admin/edit/' + req.session.r_id);
+    });
+});
+
+//delete restaurant
+router.get('/delete-restaurant/:id', (req, res) => {
+    userModel.deleteRestaurants(req.params.id, (status) => {
+        res.redirect('/home-admin/restaurants_list');
+    });
 });
 
 module.exports = router;

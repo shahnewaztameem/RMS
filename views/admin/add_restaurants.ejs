@@ -42,7 +42,7 @@
           <li><a data-toggle="modal" href='/home-admin/add_users'>Add a new user</a></li>
           <li> <a href='/home-admin/admin-edit_account'>Edit Account</a></li>
           <li><a href='/home-admin/add_restaurants'>Add Restaurant</a></li>
-          <li> <a href='/home-admin/restaurants_list'>Edit Restaurants</a></li>
+          <li> <a href='/home-admin/restaurants_list'>Restaurants Lists</a></li>
           <li><a href='/home-admin/view-restaurant'>View Restaurants</a></li>
           <li><a href='/food-experience'>Food Experience</a></li>
         </ul>
@@ -89,11 +89,11 @@
           <div class="col-md-offset-3 col-md-6">
             <div class="col-md-offser-3 col-md-6">
               <%if(errors != null){ for(var i=0; i< errors.length; i++){%>
-                  <p>
-                      <%=errors[i].msg%>
-                  </p>
-                  <%}}%>
-          </div>
+              <p>
+                <%=errors[i].msg%>
+              </p>
+              <%}}%>
+            </div>
             <h2 class="text-center"><strong>Add Restaurants and Menus</strong></h2>
             <form action="" method="POST">
               <div class="form-group">
@@ -118,19 +118,22 @@
               <div class="form-group">
                 <label for="about">Menus</label>
                 <input type="hidden" id="count" name="count" value="1" />
-                <textarea class="form-control" type="text" id="detail1" name="about1" rows="2" placeholder="About item" required style="margin-bottom: 10px;"></textarea>
+                <textarea class="form-control" type="text" id="detail1" name="about1" rows="2" placeholder="About item"
+                  required style="margin-bottom: 10px;"></textarea>
 
-                <input autocomplete="off" class="input form-control" id="field1" name="item1" type="text" required placeholder="Item name" style="margin-bottom: 10px;">
+                <input autocomplete="off" class="input form-control" id="field1" name="item1" type="text" required
+                  placeholder="Item name" style="margin-bottom: 10px;">
                 <button id="b1" class="btn btn-info add-more" type="button">More items</button>
               </div>
               <div class="form-group">
                 <label for="about">Details about restaurent</label>
-                <textarea name="r_about" id="" cols="30" rows="10"class="form-control" placeholder="Enter details of the restaurant"></textarea>
+                <textarea name="r_about" id="edit" cols="30" rows="10" class="form-control"
+                  placeholder="Enter details of the restaurant"></textarea>
               </div>
               <div class="form-group">
                 <input type="submit" class="btn btn-success" name="signup" value="Add Restaurant" class="form-control">
               </div>
-              
+
             </form>
           </div>
         </div>
@@ -153,43 +156,46 @@
     });
   </script>
   <script>
-    $(document).ready(function() {
-        
-        var next = 1;
-        $(".add-more").click(function(e) {
-            e.preventDefault();
-            var addto = "#field" + next;
-            var addDetail = "#detail" + next;
-            var addRemove = "#field" + (next);
-            next = next + 1;
-            $("#count").val(next);
-            var newIn = '<input autocomplete="off" class="input form-control" id="field' + next + '" name="item' + next + '"required placeholder="Item name" type="text" style="margin-bottom: 10px;">';
+    $(document).ready(function () {
 
-            var newDe = '<textarea class="form-control" type="text" id="detail' + next + '" name="about' + next + '" rows="2" placeholder="About item" style="margin-bottom: 10px;" required></textarea>';
-            var newInput = $(newIn);
-            var newDe = $(newDe);
-            var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >Delete item</button></div><div id="field"></br>';
-            var removeButton = $(removeBtn);
-            $(addto).after(newInput);
-            $(addto).after(newDe);
+      var next = 1;
+      $(".add-more").click(function (e) {
+        e.preventDefault();
+        var addto = "#field" + next;
+        var addDetail = "#detail" + next;
+        var addRemove = "#field" + (next);
+        next = next + 1;
+        $("#count").val(next);
+        var newIn = '<input autocomplete="off" class="input form-control" id="field' + next + '" name="item' +
+          next + '"required placeholder="Item name" type="text" style="margin-bottom: 10px;">';
 
-            $(addRemove).after(removeButton);
-            $("#field" + next).attr('data-source', $(addto).attr('data-source'));
+        var newDe = '<textarea class="form-control" type="text" id="detail' + next + '" name="about' + next +
+          '" rows="2" placeholder="About item" style="margin-bottom: 10px;" required></textarea>';
+        var newInput = $(newIn);
+        var newDe = $(newDe);
+        var removeBtn = '<button id="remove' + (next - 1) +
+          '" class="btn btn-danger remove-me" >Delete item</button></div><div id="field"></br>';
+        var removeButton = $(removeBtn);
+        $(addto).after(newInput);
+        $(addto).after(newDe);
 
-            $('.remove-me').click(function(e) {
-                e.preventDefault();
-                var fieldNum = this.id.charAt(this.id.length - 1);
-                var fieldID = "#field" + fieldNum;
-                var fieldD = "#detail" + fieldNum;
-                $(this).remove();
-                $(fieldID).remove();
-                $(fieldD).remove();
-            });
+        $(addRemove).after(removeButton);
+        $("#field" + next).attr('data-source', $(addto).attr('data-source'));
+
+        $('.remove-me').click(function (e) {
+          e.preventDefault();
+          var fieldNum = this.id.charAt(this.id.length - 1);
+          var fieldID = "#field" + fieldNum;
+          var fieldD = "#detail" + fieldNum;
+          $(this).remove();
+          $(fieldID).remove();
+          $(fieldD).remove();
         });
+      });
 
 
     });
-</script>
+  </script>
 
 </body>
 

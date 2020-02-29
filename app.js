@@ -6,6 +6,8 @@ var signup = require('./controllers/signup');
 var login = require('./controllers/login');
 var logout = require('./controllers/logout');
 var adminHome = require('./controllers/admin_home');
+
+
 var ejs = require('ejs');
 var port = process.env.PORT || 3000;
 
