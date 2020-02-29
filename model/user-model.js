@@ -183,5 +183,37 @@ module.exports = {
         db.getResults(sql, [location], (result) => {
             callback(result);
         });
+    },
+    getAllFoodExperience: function(callback) {
+        var sql = "select * from food_experience";
+        db.getResults(sql, [], function(results) {
+            callback(results);
+        });
+    },
+    insertFoodExperience: function(data, callback) {
+        var sql = "insert into food_experience values(null,?,?,?,?,?)";
+        db.execute(sql, [
+            data.u_id,
+            data.u_name,
+            data.f_about,
+            data.r_loc,
+            data.f_exp
+        ], function(status) {
+            if (status) {
+                callback(true);
+            } else {
+                callback(false);
+            }
+        });
+    },
+    deleteFoodExperience: function(id, callback) {
+        var sql = "delete from food_experience where f_id=?";
+        db.execute(sql, [id], function(status) {
+            if (status) {
+                callback(true);
+            } else {
+                callback(false);
+            }
+        });
     }
 }

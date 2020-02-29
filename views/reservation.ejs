@@ -1,0 +1,124 @@
+<%- include ("partials/header") %>
+<header class="reservation-img">
+    <div class="nav-wrapper clearfix">
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"><img src="images/nav-logo.png" alt=""></a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="index.html">home</a></li>
+                    <li><a href="/menu.html">menu</a></li>
+                    <li><a href="/reservation.html">reservation</a></li>
+                    <li><a href="/order.html">order</a></li>
+                    <li><a href="/about.html">about</a></li>
+                    <li><a href="/contact.html">contact</a></li>
+                    
+                </ul>
+                
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/login.html">Login</a></li>
+                    <li><a href="/register.html">Register</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="hero-section clearfix">
+<h1 class="text-center">reservation!</h1>
+<h2 class="text-center">Book a table online. Leads will reach in your email.</h2>
+</div>
+</header>
+
+<section class="reservation reservation-bg">
+    <div class="container">
+        <div class="row">
+            <h1 class="text-center text-dark">RESERVATIONS</h1>
+            <h3 class="text-center">Book a table online. Leads will reach in your email.</h3>
+        </div>
+        <div class="reservation-form">
+            <div class="row">
+                <div class="container">
+                <div class="reservation-form-inner">
+                    <form action="" method="">
+                        <div class="col-md-4 col-sm-6">
+                            <div class="form-group">
+                                <label for="date">Date</label>
+                                <input type="date" class="form-control" placeholder="Date">
+                            </div>
+                            
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="form-group">
+                                <label for="">Your Name</label>
+                                <input type="text" class="form-control" placeholder="Enter your name">
+                            </div>
+                            
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                        <div class="form-group">
+                            <label for="">Time</label>
+                            <input type="text" class="form-control" placeholder="Pick a time">
+                        </div>
+                            
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="form-group">
+                                <label for="">Email Address</label>
+                                <input type="text" class="form-control" placeholder="Enter email address">
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="col-md-4 col-sm-6">
+                        <div class="form-group">
+                            <label for="">Guests</label>
+                            <input type="text" class="form-control" placeholder="How many of you?">
+                        </div>
+                            
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                        <div class="form-group">
+                            <label for="">Phone Number</label>
+                            <input type="text" class="form-control" placeholder="Enter your phone number">
+                        </div>
+                            
+                        </div>
+                        <button type="submit" class="btn btn-primary">Make reservation</button>
+                    </form>
+                </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="subscribe">
+     <h1 class="text-dark text-center">Subscribe Us</h1>
+     <h3 class="text-center">Subscribe to our newsletter to get exiting updates!</h3>
+     <div class="container">
+         <div class="row">
+             <div class="col-md-offset-3 col-md-6">
+                 <form action="" method="">
+                     <div class="form-group">
+                         <input type="text" class="form-control" placeholder="Enter your email to subscribe">
+                         <a href="#" class="btn btn-primary">Subscribe now!</a>
+                     </div>
+                 </form>
+             </div>
+         </div>
+     </div>
+ </section>
+
+<%- include ("partials/footer") %>
