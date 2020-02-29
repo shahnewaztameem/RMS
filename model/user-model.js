@@ -177,5 +177,11 @@ module.exports = {
                 });
             }
         });
+    },
+    getRestaurantByLocation: function(location, callback) {
+        var sql = "select * from restaurant_info LEFT JOIN item_details on restaurant_info.r_id = item_details.r_id";
+        db.getResults(sql, [location], (result) => {
+            callback(result);
+        });
     }
 }

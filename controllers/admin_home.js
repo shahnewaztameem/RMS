@@ -335,4 +335,15 @@ router.get('/delete-restaurant/:id', (req, res) => {
     });
 });
 
+
+//view restaurants
+router.get('/view-restaurant', (req, res) => {
+    userModel.getRestaurantByLocation(req.session.u_loc, (results) => {
+        var data = {
+            r_list: results,
+            username: req.session.user_name
+        };
+        res.render('admin/view_restaurant_list', data);
+    });
+});
 module.exports = router;
