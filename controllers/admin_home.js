@@ -11,11 +11,13 @@ router.get('*', function (req, res, next) {
 router.get('/', (req, res) => {
     userModel.get(req.session.user_id, (result) => {
         var data = {
-            user_info: result
+            user_info: result,
+            user_id: req.session.user_id
         };
         res.render('admin/index', data);
     });
 });
+
 
 //user list route
 router.get('/user_list', (req, res) => {

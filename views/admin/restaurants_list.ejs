@@ -62,6 +62,17 @@
 
     <div id="page-wrapper">
       <div class="container">
+        <div class="col-lg-offset-4 col-lg-4">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <div class="row">
+                <div class="col-xs-12 text-center">
+                  <h2>Total restaurents : <%= r_list.length %></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="row">
           <div class="col-md-12">
             <h2 class="text-center"><strong>All restaurant list</strong></h2>
@@ -80,7 +91,7 @@
                 <td><%= list.r_name %></td>
                 <td><%= list.r_location %></td>
                 <td><%= list.r_details %></td>
-                
+
                 <td>
                   <a class="btn btn-success btn-sm" data-toggle="modal" href="#modal-add_item-<%=list.r_id%>">Add
                     Menus</a>
@@ -176,29 +187,30 @@
               <!-- Modal For alert while deleting. -->
               <div class="modal fade" id="modal-delete-<%=list.r_id%>">
                 <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            
-                                <h4 class="modal-title">Alert!</h4>
-                            
-                        </div>
-                        <div class="modal-body">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
-                            
-                                
+                      <h4 class="modal-title">Alert!</h4>
 
-                                <span class="h3" style="color:darkred">Are you sure you want to delete?</span><br>
-                                
-                            
-                        </div>
-                        <div class="modal-footer">
-                          <a class="btn btn-danger" style="width:20%" href="/home-admin/delete-restaurant/<%=list.r_id%>">Delete</a>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
                     </div>
+                    <div class="modal-body">
+
+
+
+
+                      <span class="h3" style="color:darkred">Are you sure you want to delete?</span><br>
+
+
+                    </div>
+                    <div class="modal-footer">
+                      <a class="btn btn-danger" style="width:20%"
+                        href="/home-admin/delete-restaurant/<%=list.r_id%>">Delete</a>
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
                 </div>
-            </div>
+              </div>
               <% })
               } else { %>
               <h2>No data found!</h2>
