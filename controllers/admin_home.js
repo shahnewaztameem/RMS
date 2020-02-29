@@ -1,4 +1,5 @@
 var express = require('express');
+var faker = require('faker');
 var userModel = require.main.require('./model/user-model');
 var router = express.Router();
 router.get('*', function (req, res, next) {
@@ -18,6 +19,20 @@ router.get('/', (req, res) => {
     });
 });
 
+//user list route
+router.get('/fakeuser', (req, res) => {
+    var data = {
+        errors: req.session.errors,
+        success: req.session.success,
+        username: faker.name.findName(),
+        email: faker.internet.email(),
+        firstname: faker.name.firstName(),
+        lastname: faker.name.lastName(),
+    };
+    req.session.errors = null;
+    req.session.success = null;
+    res.render('admin/fakeuser', data);
+});
 
 //user list route
 router.get('/user_list', (req, res) => {
@@ -155,7 +170,7 @@ router.post('/add_users', (req, res) => {
         userModel.insert(user, function (results) {
             if (results) {
                 req.session.success = 'User added!!';
-                res.redirect('/home-admin');
+                res.redirect('/home-admin/user_list');
             } else {
                 req.session.success = 'Probelm with add new user'
                 res.redirect('/home-admin/user_list');
