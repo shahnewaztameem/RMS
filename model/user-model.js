@@ -215,5 +215,30 @@ module.exports = {
                 callback(false);
             }
         });
+    },
+    insertIntoForm: function (user, callback) {
+        var sql = "INSERT into contact_form values(null,?,?)";
+        db.execute(sql, [
+            user.user_email,
+            user.user_message,
+        ], function (success) {
+            callback(success);
+        });
+    },
+    getAllFromContact: function (userId, callback) {
+        var sql = "select * from contact_form";
+        db.getResults(sql, [], function (result) {
+            callback(result);
+        });
+    },
+    deleteMessage: function (id, callback) {
+        var sql = "delete from contact_form where id=?";
+        db.execute(sql, [id], function (status) {
+            if (status) {
+                callback(true);
+            } else {
+                callback(false);
+            }
+        });
     }
 }

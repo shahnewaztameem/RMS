@@ -2,7 +2,7 @@ var express = require("express");
 var faker = require("faker");
 var userModel = require.main.require("./model/user-model");
 var router = express.Router();
-router.get("*", function(req, res, next) {
+router.get("*", function (req, res, next) {
   if (req.session.user_id != null) {
     next();
   } else {
@@ -36,7 +36,7 @@ router.get("/fakeuser", (req, res) => {
 
 //user list route
 router.get("/user_list", (req, res) => {
-  userModel.getAll(function(results) {
+  userModel.getAll(function (results) {
     var data = {
       admin_id: req.session.user_id,
       username: req.session.user_name,
@@ -46,27 +46,27 @@ router.get("/user_list", (req, res) => {
   });
 });
 
-router.get("/delete/:id", function(req, res) {
-  userModel.delete(req.params.id, function(status) {
+router.get("/delete/:id", function (req, res) {
+  userModel.delete(req.params.id, function (status) {
     res.redirect("/home-admin/user_list");
   });
 });
 
 //user individual edit
-router.get("/user_edit/:id", function(req, res) {
-  userModel.get(req.params.id, function(result) {
+router.get("/user_edit/:id", function (req, res) {
+  userModel.get(req.params.id, function (result) {
     res.render("admin/user_edit", {
       user_info: result
     });
   });
 });
-router.post("/user_edit/:id", function(req, res) {
+router.post("/user_edit/:id", function (req, res) {
   var user = {
     user_id: req.params.id,
     user_type: req.body.user_type
   };
 
-  userModel.IndividualUserUpdate(user, function(status) {
+  userModel.IndividualUserUpdate(user, function (status) {
     if (status) {
       res.redirect("/home-admin/user_list");
     } else {
@@ -177,7 +177,7 @@ router.post("/add_users", (req, res) => {
       user_gender: req.body.u_gender
     };
     console.log(user);
-    userModel.insert(user, function(results) {
+    userModel.insert(user, function (results) {
       if (results) {
         req.session.success = "User added!!";
         res.redirect("/home-admin/user_list");
@@ -220,7 +220,7 @@ router.post("/add_restaurants", (req, res) => {
 
     userModel.insertIntoRestaurant(data, status => {
       if (status) {
-        userModel.getRestaurant(data, function(result) {
+        userModel.getRestaurant(data, function (result) {
           if (result) {
             var data = {
               item1: req.body.item1,
@@ -229,7 +229,7 @@ router.post("/add_restaurants", (req, res) => {
               item2_d: req.body.about2,
               id: result.r_id
             };
-            userModel.insertIntoRestaurantItem(data, function(st) {
+            userModel.insertIntoRestaurantItem(data, function (st) {
               if (st) {
                 res.redirect("/home-admin/restaurants_list");
               }
@@ -247,7 +247,7 @@ router.post("/add_restaurants", (req, res) => {
 });
 //get restaurant list
 router.get("/restaurants_list", (req, res) => {
-  userModel.getAllRestaurant(function(result) {
+  userModel.getAllRestaurant(function (result) {
     if (result.length) {
       var data = {
         r_list: result,
@@ -373,4 +373,22 @@ router.get("/view-restaurant", (req, res) => {
     res.render("admin/view_restaurant_list", data);
   });
 });
+
+//view restaurants
+router.get("/contact_list", (req, res) => {
+  userModel.getAllFromContact(req.session.user_id, result => {
+    var data = {
+      user_info: result,
+      user_id: req.session.user_id,
+      user_name: req.session.user_name,
+    };
+    res.render("admin/contact_list", data);
+  });
+});
+router.get("/deleteMessage/:id", function (req, res) {
+  userModel.deleteMessage(req.params.id, function (status) {
+    res.redirect("/home-admin/contact_list");
+  });
+});
+
 module.exports = router;
