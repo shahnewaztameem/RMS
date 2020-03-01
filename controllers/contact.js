@@ -26,7 +26,7 @@ router.post('/', (req, res) => {
         });
     } else {
         req.session.errors = err;
-        res.redirect('/login');
+        res.redirect('/contact');
     }
 
 });

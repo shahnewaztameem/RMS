@@ -13,7 +13,8 @@ router.get("/", (req, res) => {
   userModel.get(req.session.user_id, result => {
     var data = {
       user_info: result,
-      user_id: req.session.user_id
+      user_id: req.session.user_id,
+      username: req.session.user_name
     };
     res.render("admin/index", data);
   });
@@ -24,10 +25,11 @@ router.get("/fakeuser", (req, res) => {
   var data = {
     errors: req.session.errors,
     success: req.session.success,
-    username: faker.name.findName(),
+    user_name: faker.name.findName(),
     email: faker.internet.email(),
     firstname: faker.name.firstName(),
-    lastname: faker.name.lastName()
+    lastname: faker.name.lastName(),
+    username: req.session.user_name
   };
   req.session.errors = null;
   req.session.success = null;
@@ -56,7 +58,7 @@ router.get("/delete/:id", function (req, res) {
 router.get("/user_edit/:id", function (req, res) {
   userModel.get(req.params.id, function (result) {
     res.render("admin/user_edit", {
-      user_info: result
+      user_info: result, username: req.session.user_name
     });
   });
 });
@@ -380,7 +382,7 @@ router.get("/contact_list", (req, res) => {
     var data = {
       user_info: result,
       user_id: req.session.user_id,
-      user_name: req.session.user_name,
+      username: req.session.user_name
     };
     res.render("admin/contact_list", data);
   });

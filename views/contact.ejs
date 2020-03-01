@@ -42,6 +42,17 @@
 <section class="user-profile text-center">
 	<div class="container">
 		<div class="row">
+			<div class="col-md-12 text-center" style="color: red; font-size: 20px;">
+                <%if(errors != null){ for(var i=0; i< errors.length; i++){%>
+                    <p>
+                        <%=errors[i].msg%>
+                    </p>
+                    <%}}else if(success != null){%>
+                        <p>
+                            <%= success%>
+                        </p>
+                        <%}%>
+            </div>
 			<div class="col-md-12 ">
 
 				<form action="" method="post">
