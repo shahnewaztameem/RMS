@@ -29,7 +29,7 @@ router.post('/', (req, res) => {
         };
         
         userModel.validate(user, function (result) {
-            
+            // password hasing
             // bcrypt.compare(req.body.password, user.user_password, (err,matched) => {
             //     if(matched) {
             //         console.log("done");
