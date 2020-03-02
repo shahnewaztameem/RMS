@@ -1,154 +1,92 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include("../partials/admin/header") %>
+<div id="wrapper">
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Blank Page - SB Admin</title>
-
-  <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-
-  <!-- Add custom CSS here -->
-  <link href="/css/sb-admin.css" rel="stylesheet">
-  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
-</head>
-
-<body>
-  <div id="wrapper">
-
-    <!-- Sidebar -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/home-admin"> Admin</a>
-      </div>
-
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse navbar-ex1-collapse">
-        <ul class="nav navbar-nav side-nav">
-          <li><a href="/home-admin"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-          <li><a data-toggle="modal" href='/home-admin/user_list'>Members List</a></li>
-          <li><a data-toggle="modal" href='/home-admin/add_users'>Add a new user</a></li>
-          <li> <a href='/home-admin/admin-edit_account'>Edit Account</a></li>
-          <li><a href='/home-admin/add_restaurants'>Add Restaurant</a></li>
-          <li> <a href='/home-admin/restaurants_list'>Restaurants Lists</a></li>
-          <li><a href='/home-admin/view-restaurant'>View Restaurants</a></li>
-          <li><a href='/food-experience'>Food Experience</a></li>
-        </ul>
-
-
-        <ul class="nav navbar-nav navbar-right navbar-user">
-
-          <li class="dropdown user-dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%= username%> <b
-                class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="#"><a href='/logout'><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div><!-- /.navbar-collapse -->
-    </nav>
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-offset-3 col-md-6">
-        <h3 class="text-center">Edit Account!</h3>
-        <form action="" method="POST">
-          <table class="table table-bordered table-stripped table-hover text-center">
-            <div class="form-group">
-              <tr>
-                <td>
-                  <h4><strong>Username</strong></h4>
-                </td>
-                <td>
-                  <input type="text" class="form-control" value="<%= user_info.username%>" disabled>
-                </td>
-              </tr>
-            </div>
-            </tr>
+  <!-- Sidebar -->
+  <%- include("../partials/admin/sidemenu") %>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-offset-3 col-md-6">
+      <h3 class="text-center">Edit Account!</h3>
+      <form action="" method="POST">
+        <table class="table table-bordered table-stripped table-hover text-center">
+          <div class="form-group">
             <tr>
               <td>
-                <h4><strong>First name</strong></h4>
+                <h4><strong>Username</strong></h4>
               </td>
               <td>
-                <input type="text" name="firstname" id="" value="<%= user_info.user_firstname%>" class="form-control">
+                <input type="text" class="form-control" value="<%= user_info.username%>" disabled>
+              </td>
+            </tr>
+          </div>
+          </tr>
+          <tr>
+            <td>
+              <h4><strong>First name</strong></h4>
+            </td>
+            <td>
+              <input type="text" name="firstname" id="" value="<%= user_info.user_firstname%>" class="form-control">
 
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <h4><strong>Last name</strong></h4>
-              </td>
-              <td>
-                <input type="text" name="lastname" id="" value="<%= user_info.user_lastname%>" class="form-control">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <h4><strong>Last name</strong></h4>
+            </td>
+            <td>
+              <input type="text" name="lastname" id="" value="<%= user_info.user_lastname%>" class="form-control">
 
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <h4><strong>Email</strong></h4>
-              </td>
-              <td>
-                <input type="email" name="email" id="" value="<%= user_info.user_email%>" class="form-control">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <h4><strong>Email</strong></h4>
+            </td>
+            <td>
+              <input type="email" name="email" id="" value="<%= user_info.user_email%>" class="form-control">
 
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <h4><strong>User Role:</strong></h4>
-              </td>
-              <td>
-                <select name="user_type" id="" class="form-control" disabled>
-                  <option value="admin">Admin</option>
-                  <option value="member">member</option>
-                </select>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <h4><strong>User Role:</strong></h4>
+            </td>
+            <td>
+              <select name="user_type" id="" class="form-control" disabled>
+                <option value="admin">Admin</option>
+                <option value="member">member</option>
+              </select>
 
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <h4><strong>Gender</strong></h4>
-              </td>
-              <td>
-                <select name="u_gender" id="" class="form-control">
-                  <option value="male">male</option>
-                  <option value="female">female</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <h4><strong>Password</strong></h4>
-              </td>
-              <td>
-                <input type="password" name="password" id="" class="form-control">
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2">
-                <input type="submit" class="btn btn-success" name="signup" style="width: 40%;" value="Update">
-              </td>
-            </tr>
-          </table>
-        </form>
-      </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <h4><strong>Gender</strong></h4>
+            </td>
+            <td>
+              <select name="u_gender" id="" class="form-control">
+                <option value="male">male</option>
+                <option value="female">female</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <h4><strong>Password</strong></h4>
+            </td>
+            <td>
+              <input type="password" name="password" id="" class="form-control" required>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <input type="submit" class="btn btn-success" name="signup" style="width: 40%;" value="Update">
+            </td>
+          </tr>
+        </table>
+      </form>
     </div>
   </div>
-  <!-- JavaScript -->
-  <script src="/js/jquery-1.10.2.js"></script>
-  <script src="/js/bootstrap.js"></script>
-
-</body>
-
-</html>
+</div>
+<%- include("../partials/admin/footer") %>

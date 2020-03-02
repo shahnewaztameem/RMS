@@ -5,7 +5,8 @@
 			<div class="container">
 				<!-- Brand and toggle get grouped for better mobile display -->
 				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+						data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
@@ -24,7 +25,7 @@
 						<li><a href="about.html">about</a></li>
 						<li><a href="contact.html">contact</a></li>
 					</ul>
-					
+
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="profile.html">username</a></li>
 						<li><a href="edit_profile.html">edit profile</a></li>
@@ -35,30 +36,41 @@
 		</nav>
 	</div>
 	<div class="hero-section clearfix">
-	<h1 class="text-center">Contact Us</h1>
+		<h1 class="text-center">Contact Us</h1>
 	</div>
-	</header>
-	<section class="user-profile text-center">
-		<div class="container">
-			<div class="row">
+</header>
+<section class="user-profile text-center">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 text-center" style="color: red; font-size: 20px;">
+                <%if(errors != null){ for(var i=0; i< errors.length; i++){%>
+                    <p>
+                        <%=errors[i].msg%>
+                    </p>
+                    <%}}else if(success != null){%>
+                        <p>
+                            <%= success%>
+                        </p>
+                        <%}%>
+            </div>
 			<div class="col-md-12 ">
-				
-					<form action="" method="post">
-						<div class="form-group">
-							<label for="email">Email</label>
-							<input type="text" placeholder="Enter email" class="form-control">
-						</div>
-						<div class="form-group">
-							<label for="message">Message</label>
-							<textarea name="" id="" cols="30" rows="10" class="form-control"></textarea>
-						</div>
-						<a href="#" class="btn btn-warning">Send Message!</a>
-					</form>
-					
-				
-				</div>
+
+				<form action="" method="post">
+					<div class="form-group">
+						<label for="email">Email</label>
+						<input type="email" placeholder="Enter email" class="form-control" name="email">
+					</div>
+					<div class="form-group">
+						<label for="message">Message</label>
+						<textarea name="message" id="" cols="30" rows="10" class="form-control"></textarea>
+					</div>
+					<input type="submit" value="Send Message" class="btn btn-danger btn-sm" id="msg-success">
+				</form>
+
+
 			</div>
 		</div>
-	</section>
+	</div>
+</section>
 
 <%- include ("partials/footer") %>
