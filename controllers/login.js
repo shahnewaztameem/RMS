@@ -1,6 +1,5 @@
 var express = require('express');
 var userModel = require.main.require('./model/user-model');
-var bcrypt = require("bcrypt");
 var router = express.Router();
 
 //ROUTES
@@ -27,22 +26,9 @@ router.post('/', (req, res) => {
             user_email: req.body.email,
             user_pass: req.body.password
         };
-        
         userModel.validate(user, function (result) {
-            
-            // bcrypt.compare(req.body.password, user.user_password, (err,matched) => {
-            //     if(matched) {
-            //         console.log("done");
-
-            //     }
-            //     else {
-            //         throw err;
-            //     }
-            // })
-            console.log(result.user_password);
-            
             if (result.id != null) {
-                
+
                 req.session.user_id = result.id;
                 //console.log(req.session.user_id);
                 req.session.user_name = result.username;
@@ -52,6 +38,7 @@ router.post('/', (req, res) => {
                 req.session.user_type = result.user_type;
                 req.session.user_gender = result.user_gender;
                 req.session.u_type = result.user_type;
+
                 if (req.session.u_type == "admin") {
                     res.redirect('/home-admin');
                 } else
@@ -60,7 +47,7 @@ router.post('/', (req, res) => {
                 req.session.success = "Invalid User";
                 res.redirect('/login');
             }
-         });
+        });
     } else {
         req.session.errors = err;
         res.redirect('/login');
