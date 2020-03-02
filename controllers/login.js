@@ -30,7 +30,11 @@ router.post('/', (req, res) => {
         
         userModel.validate(user, function (result) {
 <<<<<<< HEAD
+<<<<<<< HEAD
             // password hasing
+=======
+            
+>>>>>>> parent of 7d3320e... Add files via upload
 =======
             
 >>>>>>> parent of 7d3320e... Add files via upload
